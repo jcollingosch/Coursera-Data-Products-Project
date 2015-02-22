@@ -2,6 +2,8 @@ shinyUI(fluidPage(
   
   titlePanel("Bayesian A/B Testing"),
   
+  h4("Inspiration from DataOragami Lessons by Cameron Davidson-Pilon"),
+  
   sidebarLayout(
     
     sidebarPanel(
@@ -21,7 +23,10 @@ shinyUI(fluidPage(
       p("1. Input number of observations from each group"),
       p("2. Input number converted (success) from each group"),
       p("3. Zoom in/out of A/B Posterior Distribution plot window (optional)"),
-      p("4. Query posterior distribution of the relative increase (optional)")
+      p("4. Query posterior distribution of the relative increase (optional)"),
+      h4("Reference:"),
+      p("DataOragami Screencasts on Bayesian Analysis by Cameron Davidson-Pilon"),
+      HTML("<a href='http://dataorigami.net/'>DataOragami Website</a>")
       
     ),
     
