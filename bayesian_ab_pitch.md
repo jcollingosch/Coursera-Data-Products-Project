@@ -1,0 +1,57 @@
+Bayesian A/B Testing
+========================================================
+author: J. Collin Gosch
+date: 2/22/2014
+
+Framework
+========================================================
+
+Using a Bayesian Framework for A/B Testing provides a clean and intuitive results in a **posterior distribution**
+
+Using that distribution you get...
+
+- Credible Intervals - quantify uncertinty 
+    + "Probability that conversion rate is ..."
+- Visualization of uncertinty
+- Ability to sample from posterior for probability inference
+
+Recall
+========================================================
+
+Bayese formula 
+
+$$ P(A|B) = \dfrac{P(B|A)*P(A)}{P(B)}  $$
+
+Or from a data analysis contex, if we multiply the prior probability by the liklihood and divide by a normalization constant, we get the posterior probability. 
+
+This is nice because then we can make statements about the parameters we are estimating based on the data that we have seen. 
+
+Math
+========================================================
+
+- Lets choose a flat prior like the **uniform distribution** for the conversion rate. 
+  + This says that all values for the conversion rate between 0 and 1 are equally likely.
+- We can mimic a uniform prior by a **beta distribution** with paramaters alpha = 1 and beta = 1
+- If our prior is beta and our data comes from a **binomial distribution** then the posterior is also beta distributed with parameters alpha + n and beta + N - n
+  + Where N = total # of bernoulli trials
+  + n = # of successes (with probabilty p)
+  
+Result
+========================================================
+We can very easily build a posterior distribution to play with and sample from to get inference...
+
+```r
+# set up data
+a_obs=100; a_conv=30; b_obs=100; b_conv=40
+# sample from the posterior 
+samples_a=rbeta(10000, 1+a_conv, 1+a_obs-a_conv)
+samples_b=rbeta(10000, 1+b_conv, 1+b_obs-b_conv)
+# ask questions
+cat("The probability the conversion rate from group B is greater than group A is",mean(samples_b > samples_a))
+```
+
+```
+The probability the conversion rate from group B is greater than group A is 0.933
+```
+
+
